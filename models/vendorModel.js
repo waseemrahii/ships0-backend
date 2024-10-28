@@ -1,6 +1,5 @@
-
 import mongoose from 'mongoose';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs'; // Change to bcryptjs
 
 const { Schema, model } = mongoose;
 
@@ -22,13 +21,14 @@ const vendorSchema = new Schema({
 // Hash password before saving
 vendorSchema.pre('save', async function (next) {
   if (this.isModified('password')) {
-    this.password = await bcrypt.hash(this.password, 10);
+    this.password = await bcrypt.hash(this.password, 10); // No change needed here
   }
   next();
 });
 
+// Compare password method
 vendorSchema.methods.comparePassword = async function (password) {
-  return await bcrypt.compare(password, this.password);
+  return await bcrypt.compare(password, this.password); // No change needed here
 };
 
 export default model('Vendor', vendorSchema);
