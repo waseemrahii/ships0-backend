@@ -8,7 +8,7 @@ import {
     getCategoryById,
     updateCategory,
     deleteCategory,
-	getCategoryBySlug
+	// getCategoryBySlug
 } from "../controllers/categoryController.js";
 
 const storage = multer.diskStorage({
@@ -43,15 +43,16 @@ const checkFileType = (file, cb) => {
 const router = express.Router();
 
 router.route("/")
-    .post(upload.single("logo"), createCategory)
+    // .post(upload.single("logo"), createCategory)
+    .post(createCategory)
     .get(getCategories);
 
 router.route("/:id")
     .get(getCategoryById)
-    .put(upload.single("logo"), updateCategory)
+    .put(updateCategory)
     .delete(deleteCategory);
 
-router.route("/slug/:slug")
-    .get(getCategoryBySlug);
+// router.route("/slug/:slug")
+//     .get(getCategoryBySlug);
 
 export default router;

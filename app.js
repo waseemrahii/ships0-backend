@@ -15,8 +15,8 @@ import customerRoutes from "./routes/customerRoutes.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
 import oderRoutes from "./routes/orderRoutes.js";
-import subscriber from "./routes/subscriberRoutes.js";
 import { sendErrorResponse } from "./utils/responseHandler.js";
+import subscriber from "./routes/subscriberRoutes.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -29,7 +29,6 @@ const app = express();
 //      'https://ecommercebaazaar.com/'],
 //   credentials: true,
 // }));
-
 
 app.use(cors({
   origin: '*',  
@@ -49,6 +48,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // API ROUTES
 app.use("/api/users", userRoutes);
+
 app.use("/api/vendors", vendorRoutes);
 app.use("/api/customers", customerRoutes);
 app.use("/api/categories", categoryRoutes);

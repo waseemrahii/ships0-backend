@@ -33,7 +33,8 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // Product routes
-router.post('/', upload.fields([{ name: 'thumbnail' }, { name: 'images', maxCount: 10 }]), createProduct);
+// router.post('/', upload.fields([{ name: 'thumbnail' }, { name: 'images', maxCount: 10 }]), createProduct);
+router.post('/', createProduct);
 router.get('/', getAllProducts);
 
 // Static routes 

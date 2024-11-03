@@ -27,9 +27,10 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // POST /vendors - Create a new vendor
-router.post('/', upload.fields([{ name: 'vendorImage' }, { name: 'logo' }, { name: 'banner' }]), createVendor);
+router.post('/', createVendor);
+// router.post('/', upload.fields([{ name: 'vendorImage' }, { name: 'logo' }, { name: 'banner' }]), createVendor);
 
-router.post('/signup',  upload.fields([{ name: 'vendorImage' }, { name: 'logo' }, { name: 'banner' }]),registerVendor);
+router.post('/signup', registerVendor);
 
 // POST /vendors/login - Vendor login
 router.post('/login', loginVendor);

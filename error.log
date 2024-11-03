@@ -827,3 +827,80 @@
 2024-10-27T11:17:23.163Z [error]: User not found
 2024-10-27T11:23:00.838Z [error]: User not found
 2024-10-27T11:23:07.881Z [error]: User not found
+2024-10-28T21:55:02.932Z [error]: User not found
+2024-10-28T21:55:03.102Z [error]: User not found
+2024-10-28T22:02:41.289Z [error]: User not found
+2024-10-28T22:02:41.323Z [error]: User not found
+2024-10-28T22:02:44.511Z [error]: User not found
+2024-10-28T22:02:44.706Z [error]: User not found
+2024-10-28T22:23:31.740Z [error]: User not found
+2024-10-28T22:23:32.467Z [error]: User not found
+2024-10-29T20:12:58.206Z [error]: User not found
+2024-10-29T20:12:58.235Z [error]: User not found
+2024-10-29T20:18:48.243Z [error]: E11000 duplicate key error collection: pharmacy-server.categories index: name_1 dup key: { name: "categor" }
+2024-10-29T20:21:05.361Z [error]: User not found
+2024-10-29T20:21:05.370Z [error]: User not found
+2024-10-29T20:24:16.643Z [error]: User not found
+2024-10-29T20:24:16.664Z [error]: User not found
+2024-10-29T20:25:04.713Z [error]: User not found
+2024-10-29T20:25:10.740Z [error]: User not found
+2024-10-29T20:25:57.433Z [error]: Incorrect email or password
+2024-10-29T20:26:08.294Z [error]: Incorrect email or password
+2024-10-29T20:26:29.639Z [error]: Incorrect email or password
+2024-10-29T20:28:59.098Z [error]: User validation failed: name: Please tell us your name.
+2024-11-02T15:55:12.582Z [error]: User not found
+2024-11-02T15:55:12.637Z [error]: User not found
+2024-11-02T17:45:49.338Z [error]: User not found
+2024-11-02T17:45:49.386Z [error]: User not found
+2024-11-02T17:49:10.569Z [error]: User not found
+2024-11-02T17:49:10.615Z [error]: User not found
+2024-11-02T18:59:25.770Z [error]: User not found
+2024-11-02T18:59:26.079Z [error]: User not found
+2024-11-03T07:58:29.447Z [error]: User not found
+2024-11-03T07:58:29.906Z [error]: User not found
+2024-11-03T08:42:27.222Z [error]: User not found
+2024-11-03T08:42:27.703Z [error]: User not found
+2024-11-03T08:46:03.623Z [error]: slugify: string argument expected
+2024-11-03T08:46:14.820Z [error]: slugify: string argument expected
+2024-11-03T08:51:38.463Z [error]: slugify: string argument expected
+2024-11-03T08:55:16.340Z [error]: Category not found
+2024-11-03T08:55:22.149Z [error]: Category not found
+2024-11-03T08:57:19.282Z [error]: slugify: string argument expected
+2024-11-03T09:56:55.231Z [error]: slugify: string argument expected
+2024-11-03T10:09:04.484Z [error]: Category not found
+2024-11-03T10:27:42.756Z [error]: Invalid first name, Invalid last name, Invalid phone number, Invalid email, Invalid password, Invalid shop name, Invalid address
+2024-11-03T10:57:13.924Z [error]: Invalid first name, Invalid last name, Invalid phone number, Invalid email, Invalid password, Invalid shop name, Invalid address
+2024-11-03T11:30:59.542Z [error]: slugify: string argument expected
+2024-11-03T11:36:52.029Z [error]: E11000 duplicate key error collection: pharmacy-server.vendors index: email_1 dup key: { email: "vendor122@gmail.com" }
+2024-11-03T11:37:37.065Z [error]: E11000 duplicate key error collection: pharmacy-server.vendors index: email_1 dup key: { email: "vendor122@gmail.com" }
+2024-11-03T11:38:17.270Z [error]: E11000 duplicate key error collection: pharmacy-server.vendors index: email_1 dup key: { email: "vendor122@gmail.com" }
+2024-11-03T11:53:58.797Z [error]: applyVendorSearchFilters is not defined
+2024-11-03T11:54:09.057Z [error]: applyVendorSearchFilters is not defined
+2024-11-03T11:54:45.908Z [error]: applyVendorSearchFilters is not defined
+2024-11-03T11:54:51.779Z [error]: applyVendorSearchFilters is not defined
+2024-11-03T21:03:03.495Z [error]: User not found
+2024-11-03T21:03:03.713Z [error]: User not found
+2024-11-03T21:07:48.252Z [error]: applyVendorSearchFilters is not defined
+2024-11-03T21:07:48.313Z [error]: applyVendorSearchFilters is not defined
+2024-11-03T21:08:00.653Z [error]: applyVendorSearchFilters is not defined
+2024-11-03T21:10:06.840Z [error]: slugify: string argument expected
+2024-11-03T21:14:42.017Z [error]: E11000 duplicate key error collection: pharmacy-server.vendors index: email_1 dup key: { email: "vendor1223@gmail.com" }
+2024-11-03T21:26:18.710Z [error]: E11000 duplicate key error collection: pharmacy-server.vendors index: email_1 dup key: { email: "vendor1223@gmail.com" }
+2024-11-03T21:40:41.926Z [error]: slugify: string argument expected
+2024-11-03T21:44:11.073Z [error]: E11000 duplicate key error collection: pharmacy-server.categories index: name_1 dup key: { name: "asdasdasd" }
+2024-11-03T21:44:37.042Z [error]: slugify: string argument expected
+2024-11-03T21:44:45.641Z [error]: Category not found
+2024-11-03T21:44:50.517Z [error]: Category not found
+2024-11-03T21:44:51.853Z [error]: Category not found
+2024-11-03T21:44:52.874Z [error]: Category not found
+2024-11-03T21:55:24.946Z [error]: Cannot read properties of undefined (reading 'thumbnail')
+2024-11-03T21:56:52.135Z [error]: Cannot read properties of undefined (reading 'thumbnail')
+2024-11-03T22:04:49.469Z [error]: Image upload failed
+2024-11-03T22:06:24.420Z [error]: Image upload failed
+2024-11-03T22:07:59.551Z [error]: Image upload failed
+2024-11-03T22:08:50.086Z [error]: Image upload failed
+2024-11-03T22:09:06.430Z [error]: Image upload failed
+2024-11-03T22:12:33.709Z [error]: buildFilterQuery is not defined
+2024-11-03T22:12:33.794Z [error]: buildFilterQuery is not defined
+2024-11-03T22:15:51.850Z [error]: User not found
+2024-11-03T22:15:51.884Z [error]: User not found

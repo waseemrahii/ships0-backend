@@ -1,4 +1,5 @@
 import Product from '../models/ProductModels.js';
+import cloudinary from '../config/cloudinaryConfig.js';
 import {
     sendErrorResponse,
     sendSuccessResponse
@@ -18,45 +19,59 @@ import {
 import Category from '../models/categoryModel.js';
 
 
+const uploadToCloudinary = async (base64Data, folderName) => {
+  try {
+     // Ensure base64 data is correctly prefixed
+     if (!base64Data.startsWith('data:image')) {
+        base64Data = `data:image/jpeg;base64,${base64Data}`; // or png, based on your data
+      }
+    const result = await cloudinary.uploader.upload(base64Data, { folder: folderName });
+    return result.secure_url;
+  } catch (error) {
+    console.error(`Cloudinary upload error for ${folderName}:`, error);
+    throw new Error('Image upload failed');
+  }
+};
 
 export const createProduct = async (req, res) => {
-    try {
-        const { error } = productValidationSchema.validate(req.body, { abortEarly: false });
-        if (error) {
-            return res.status(400).json({ message: error.details.map(err => err.message).join(', ') });
-        }
+  try {
+    const { name, description, category, sku, unit, tags, price, stock, userId, userType, thumbnail, images } = req.body;
 
-        const {
-            name, description, category, sku, unit, tags, price, 
-            stock, userId, userType
-        } = req.body;
-
-        const categoryObj = await Category.findById(category);
-        if (!categoryObj) {
-            return res.status(400).json({ message: 'Invalid category ID' });
-        }
-
-        const newProduct = new Product({
-            name,
-            description,
-            category: categoryObj._id,
-            sku,
-            unit,
-            tags,
-            price,
-            stock,
-            userId,
-            userType,
-            thumbnail: req.files['thumbnail'] ? req.files['thumbnail'][0].path : undefined,
-            images: req.files['images'] ? req.files['images'].map(file => file.path) : [],
-            status: 'pending',
-        });
-
-        await newProduct.save();
-        sendSuccessResponse(res, newProduct, 'Product created successfully');
-    } catch (error) {
-        sendErrorResponse(res, error);
+    const categoryObj = await Category.findById(category);
+    if (!categoryObj) {
+      return res.status(400).json({ message: 'Invalid category ID' });
     }
+
+    const thumbnailUrl = thumbnail ? await uploadToCloudinary(thumbnail, 'products') : null;
+
+    const imageUrls = [];
+    for (const base64Image of images) {
+      const imageUrl = await uploadToCloudinary(base64Image, 'products');
+      imageUrls.push(imageUrl);
+    }
+
+    const newProduct = new Product({
+      name,
+      description,
+      category: categoryObj._id,
+      sku,
+      unit,
+      tags,
+      price,
+      stock,
+      userId,
+      userType,
+      thumbnail: thumbnailUrl,
+      images: imageUrls,
+      status: 'pending',
+    });
+
+    await newProduct.save();
+    sendSuccessResponse(res, newProduct, 'Product created successfully');
+  } catch (error) {
+    console.error('Error creating product:', error);
+    sendErrorResponse(res, error);
+  }
 };
 
 // Update product images

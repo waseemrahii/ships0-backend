@@ -1,22 +1,62 @@
 import Vendor from '../models/vendorModel.js';
+import cloudinary from "../config/cloudinaryConfig.js";
 import { sendSuccessResponse, sendErrorResponse } from '../utils/responseHandler.js';
 import { validateVendorInput, applyVendorSearchFilters } from '../validations/vendorUtils.js';
-import jwt from 'jsonwebtoken';
 
-// Create a new vendor
+// Helper function for Cloudinary upload
+const uploadToCloudinary = async (base64Data, folderName) => {
+  try {
+    // console.log("folder name to uplaod pic to cld", folderName)
+    // console.log("folder name to uplaod data to cld", base64Data)
+    const result = await cloudinary.uploader.upload(base64Data, { folder: folderName });
+    return result.secure_url;
+  } catch (error) {
+    console.error(`Cloudinary upload error for ${folderName}:`, error);
+    throw new Error("Image upload failed");
+  }
+};
+
+// Separate functions for uploading each type of image
+const uploadVendorImage = async (vendorImage) => {
+  if (vendorImage) {
+    return await uploadToCloudinary(vendorImage, 'categories');
+  }
+  return null;
+};
+
+const uploadLogo = async (logo) => {
+  if (logo) {
+    return await uploadToCloudinary(logo, 'categories');
+  }
+  return null;
+};
+
+const uploadBanner = async (banner) => {
+  if (banner) {
+    return await uploadToCloudinary(banner, 'categories');
+  }
+  return null;
+};
+
+// Create a new vendor with Cloudinary uploads
 export const createVendor = async (req, res) => {
   try {
-    const { firstName, lastName, phoneNumber, email, password, shopName, address } = req.body;
-    const { isValid, errors } = validateVendorInput(req.body);
+    // console.log("Incoming request to create vendor...");
+    // console.log("Request body: ", req.body);
 
-    if (!isValid) {
-      return sendErrorResponse(res, new Error(errors.join(', ')), 400);
-    }
+    const { firstName, lastName, phoneNumber, email, password, shopName, address, vendorImage, logo, banner } = req.body;
 
-    const vendorImage = req.files['vendorImage'] ? req.files['vendorImage'][0].path : null;
-    const logo = req.files['logo'] ? req.files['logo'][0].path : null;
-    const banner = req.files['banner'] ? req.files['banner'][0].path : null;
+    // Upload images and get URLs
+    const vendorImageUrl = await uploadVendorImage(vendorImage);
+    console.log("Vendor image uploaded:", vendorImageUrl);
 
+    const logoUrl = await uploadLogo(logo);
+    console.log("Logo uploaded:", logoUrl);
+
+    const bannerUrl = await uploadBanner(banner);
+    console.log("Banner uploaded:", bannerUrl);
+
+    // Create vendor object
     const vendor = new Vendor({
       firstName,
       lastName,
@@ -25,36 +65,46 @@ export const createVendor = async (req, res) => {
       password,
       shopName,
       address,
-      vendorImage,
-      logo,
-      banner,
-      status: 'pending', // Set default status to pending
+      vendorImage: vendorImageUrl,
+      logo: logoUrl,
+      banner: bannerUrl,
+      status: 'pending', // Default status
     });
 
+    // Save vendor to the database
     const savedVendor = await vendor.save();
+    console.log("Vendor saved:", savedVendor);
+
     if (savedVendor) {
       sendSuccessResponse(res, savedVendor, 'Vendor added successfully');
     } else {
       throw new Error('Vendor could not be created');
     }
   } catch (error) {
+    console.error("Error creating vendor:", error);
     sendErrorResponse(res, error);
   }
 };
 
-// Vendor registration (similar to createVendor but may have different logic)
+// Vendor registration (similar to createVendor)
 export const registerVendor = async (req, res) => {
   try {
     const { firstName, lastName, phoneNumber, email, password, shopName, address } = req.body;
     const { isValid, errors } = validateVendorInput(req.body);
-
+    console.log("req bode ", req.body)
     if (!isValid) {
       return sendErrorResponse(res, new Error(errors.join(', ')), 400);
     }
 
-    const vendorImage = req.files['vendorImage'] ? req.files['vendorImage'][0].path : null;
-    const logo = req.files['logo'] ? req.files['logo'][0].path : null;
-    const banner = req.files['banner'] ? req.files['banner'][0].path : null;
+    const vendorImage = req.files['vendorImage']
+      ? await uploadToCloudinary(req.files['vendorImage'][0].path, 'vendors/vendorImages')
+      : null;
+    const logo = req.files['logo']
+      ? await uploadToCloudinary(req.files['logo'][0].path, 'vendors/logos')
+      : null;
+    const banner = req.files['banner']
+      ? await uploadToCloudinary(req.files['banner'][0].path, 'vendors/banners')
+      : null;
 
     const newVendor = new Vendor({
       firstName,
@@ -80,6 +130,7 @@ export const registerVendor = async (req, res) => {
     sendErrorResponse(res, error);
   }
 };
+
 
 // Vendor login
 export const loginVendor = async (req, res) => {
