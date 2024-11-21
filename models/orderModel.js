@@ -13,7 +13,7 @@ const orderSchema = new mongoose.Schema({
       enum: ['Pending', 'Completed', 'Failed'],
       default: 'Pending'
     },
-    stripeSessionId: { type: String, required: true },
+    stripeSessionId: { type: String },
     shippingAddress: {
       name: { type: String, required: true },
       address: { type: String, required: true },
