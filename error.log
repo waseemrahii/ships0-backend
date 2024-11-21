@@ -904,3 +904,17 @@
 2024-11-03T22:12:33.794Z [error]: buildFilterQuery is not defined
 2024-11-03T22:15:51.850Z [error]: User not found
 2024-11-03T22:15:51.884Z [error]: User not found
+2024-11-20T10:12:21.598Z [error]: Invalid credentials
+2024-11-20T10:14:48.678Z [error]: Invalid credentials
+2024-11-20T10:18:04.100Z [error]: Invalid credentials
+2024-11-20T10:18:13.449Z [error]: Invalid credentials
+2024-11-20T10:23:26.562Z [error]: Invalid credentials
+2024-11-20T10:26:05.128Z [error]: Vendor.correctPassword is not a function
+2024-11-20T10:46:41.582Z [error]: Illegal arguments: string, undefined
+2024-11-21T05:07:49.028Z [error]: Illegal arguments: string, undefined
+2024-11-21T05:08:59.998Z [error]: Illegal arguments: string, undefined
+2024-11-21T05:09:15.859Z [error]: Illegal arguments: string, undefined
+2024-11-21T05:12:45.356Z [error]: jwt is not defined
+2024-11-21T05:38:39.312Z [error]: Operation `vendors.findOne()` buffering timed out after 10000ms
+2024-11-21T05:38:57.447Z [error]: Operation `vendors.findOne()` buffering timed out after 10000ms
+2024-11-21T05:39:07.358Z [error]: Operation `vendors.findOne()` buffering timed out after 10000ms

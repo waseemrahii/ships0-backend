@@ -9,7 +9,6 @@ export const sendSuccessResponse = (res, data, message) => {
 };
 
 
-
 export const sendErrorResponse = (res, error) => {
     logger.error(error.message || error);
     res.status(500).json({
@@ -17,3 +16,4 @@ export const sendErrorResponse = (res, error) => {
          message: 'Internal Server Error',
          error: error.message });
 };
+

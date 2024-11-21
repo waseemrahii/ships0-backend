@@ -2,12 +2,12 @@ import Vendor from '../models/vendorModel.js';
 import cloudinary from "../config/cloudinaryConfig.js";
 import { sendSuccessResponse, sendErrorResponse } from '../utils/responseHandler.js';
 import { validateVendorInput, applyVendorSearchFilters } from '../validations/vendorUtils.js';
+import jwt from 'jsonwebtoken';
 
 // Helper function for Cloudinary upload
 const uploadToCloudinary = async (base64Data, folderName) => {
   try {
-    // console.log("folder name to uplaod pic to cld", folderName)
-    // console.log("folder name to uplaod data to cld", base64Data)
+  
     const result = await cloudinary.uploader.upload(base64Data, { folder: folderName });
     return result.secure_url;
   } catch (error) {
@@ -38,11 +38,10 @@ const uploadBanner = async (banner) => {
   return null;
 };
 
+
 // Create a new vendor with Cloudinary uploads
 export const createVendor = async (req, res) => {
   try {
-    // console.log("Incoming request to create vendor...");
-    // console.log("Request body: ", req.body);
 
     const { firstName, lastName, phoneNumber, email, password, shopName, address, vendorImage, logo, banner } = req.body;
 
@@ -137,28 +136,35 @@ export const loginVendor = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const vendor = await Vendor.findOne({ email });
+
+    // Fetch the vendor with the password explicitly selected
+    const vendor = await Vendor.findOne({ email }).select('+password');
+    console.log("vendor found:", vendor);
 
     if (!vendor) {
       return sendErrorResponse(res, new Error('Vendor not found'), 404);
     }
 
-    const isPasswordCorrect = password === vendor.password;
+    // Compare the provided password with the hashed password
+    const isPasswordCorrect = await vendor.comparePassword(password);
     if (!isPasswordCorrect) {
       return sendErrorResponse(res, new Error('Invalid credentials'), 400);
     }
 
+    // Generate a token
     const token = jwt.sign(
       { email: vendor.email, id: vendor._id },
       process.env.JWT_SECRET,
       { expiresIn: process.env.JWT_ACCESS_TIME }
     );
 
-    sendSuccessResponse(res, { result: vendor, token }, 'Login successful');
+    sendSuccessResponse(res, { vendor, token }, 'Login successful');
   } catch (error) {
+    console.error("Error during vendor login:", error);
     sendErrorResponse(res, error);
   }
 };
+
 
 // Update vendor status
 export const updateVendorStatus = async (req, res) => {
